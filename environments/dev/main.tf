@@ -8,4 +8,3 @@ resource "azurerm_resource_group" "avd" {
     Project     = "AVD-Capstone"
   }
 }
-# Testing PR workflow
