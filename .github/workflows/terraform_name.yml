@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform Plan'
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'environments/**'
-      - '.github/workflows/terraform.yml'
+      - '.github/workflows/terraform_plan.yml'
   workflow_dispatch:  # Allows manual trigger
 
 permissions:
