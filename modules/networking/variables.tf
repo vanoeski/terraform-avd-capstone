@@ -24,11 +24,11 @@ variable "sku_name" {
     default = "Standard"
 }
 
-variable "environment" {
+variable "Environment" {
     type = string
 }
 
-variable "project" {
+variable "Project" {
     type = string
 }
 
