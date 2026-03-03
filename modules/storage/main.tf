@@ -1,8 +1,8 @@
 locals {
     common_tags = {
-        Environment = var.environment
-        ManagedBy   = "Terraform"
-        Project     = var.project
+        environment = var.environment
+        managedBy   = "Terraform"
+        project     = var.project
     }
 }
 
@@ -33,5 +33,10 @@ resource "azurerm_private_endpoint" "avd_storage" {
       private_connection_resource_id = azurerm_storage_account.avd.id
       subresource_names = ["file"]
       is_manual_connection = false
+    }
+
+    private_dns_zone_group {
+        name = "${var.private_endpoint_name}-dnszonegroup"
+        private_dns_zone_ids = [var.private_dns_zone_id]
     }
 }

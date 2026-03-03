@@ -59,3 +59,7 @@ variable "account_kind" {
     type = string
     default = "FileStorage"
 }
+
+variable "private_dns_zone_id" {
+    type = string
+}

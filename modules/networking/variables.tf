@@ -24,11 +24,11 @@ variable "sku_name" {
     default = "Standard"
 }
 
-variable "Environment" {
+variable "environment" {
     type = string
 }
 
-variable "Project" {
+variable "project" {
     type = string
 }
 
@@ -47,3 +47,4 @@ variable "avd_subnet_key" {
 variable "storage_subnet_key" {
     type = string  
 }
+

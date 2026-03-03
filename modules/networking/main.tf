@@ -1,8 +1,8 @@
 locals {
     common_tags = {
-        Environment = var.Environment
-        ManagedBy   = "Terraform"
-        Project     = var.Project
+        environment = var.environment
+        managedBy   = "Terraform"
+        project     = var.project
     }
 }
 
@@ -70,4 +70,18 @@ resource "azurerm_public_ip" "nat_gateway_public_ip" {
 resource "azurerm_nat_gateway_public_ip_association" "nat_gateway_public_ip_association" {
   nat_gateway_id        = azurerm_nat_gateway.nat_gateway.id
   public_ip_address_id  = azurerm_public_ip.nat_gateway_public_ip.id
+}
+
+resource "azurerm_private_dns_zone" "private_dns_zone" {
+    name                = "privatelink.file.core.windows.net"
+    resource_group_name = var.resource_group_name
+    tags                = local.common_tags
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_storage_link" {
+    name                  = "${var.vnet_name}-dns-link"
+    resource_group_name   = var.resource_group_name
+    private_dns_zone_name = azurerm_private_dns_zone.private_dns_zone.name
+    virtual_network_id    = azurerm_virtual_network.vnet.id
+    registration_enabled  = false
 }
