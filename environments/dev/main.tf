@@ -10,9 +10,9 @@ resource "azurerm_resource_group" "avd" {
   location = var.location
 
   tags = {
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-    Project     = "AVD-Capstone"
+    environment = var.environment
+    managedBy   = "Terraform"
+    project     = "AVD-Capstone"
   }
 }
 
