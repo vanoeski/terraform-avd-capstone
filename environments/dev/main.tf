@@ -80,5 +80,5 @@ module "avd-hostpool" {
   vm_count                = 2
   subnet_id               = module.networking.avd_subnet_id
   admin_username          = "blah"
-  admin_password          = "blah"
+  admin_password          = "TempP@ss123!"
 }
