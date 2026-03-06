@@ -7,7 +7,7 @@ variable "project" {
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = "eastus"
 }
 
@@ -67,7 +67,7 @@ variable "workspace_description" {
 }
 
 variable "vm_count" {
-  type    = number
+  type = number
 }
 
 variable "subnet_id" {

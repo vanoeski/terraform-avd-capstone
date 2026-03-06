@@ -16,11 +16,11 @@ resource "azurerm_virtual_desktop_host_pool" "avd_hostpool" {
   resource_group_name = var.resource_group_name
   tags                = local.common_tags
 
-  name                = var.host_pool_name
-  friendly_name       = var.friendly_name
-  description         = var.description
-  type                = var.host_pool_type
-  load_balancer_type  = var.load_balancer_type
+  name               = var.host_pool_name
+  friendly_name      = var.friendly_name
+  description        = var.description
+  type               = var.host_pool_type
+  load_balancer_type = var.load_balancer_type
 }
 
 resource "azurerm_virtual_desktop_application_group" "desktop_app_group" {
@@ -29,10 +29,10 @@ resource "azurerm_virtual_desktop_application_group" "desktop_app_group" {
   resource_group_name = var.resource_group_name
   tags                = local.common_tags
 
-  type                = var.app_group_type
-  host_pool_id        = azurerm_virtual_desktop_host_pool.avd_hostpool.id
-  friendly_name       = var.app_group_friendly_name
-  description         = var.app_group_description
+  type          = var.app_group_type
+  host_pool_id  = azurerm_virtual_desktop_host_pool.avd_hostpool.id
+  friendly_name = var.app_group_friendly_name
+  description   = var.app_group_description
 }
 
 resource "azurerm_virtual_desktop_workspace" "workspace" {
@@ -41,13 +41,13 @@ resource "azurerm_virtual_desktop_workspace" "workspace" {
   resource_group_name = var.resource_group_name
   tags                = local.common_tags
 
-  friendly_name       = var.workspace_friendly_name
-  description         = var.workspace_description
+  friendly_name = var.workspace_friendly_name
+  description   = var.workspace_description
 }
 
 resource "azurerm_virtual_desktop_workspace_application_group_association" "workspace_app_group_association" {
-  workspace_id        = azurerm_virtual_desktop_workspace.workspace.id
-  application_group_id = azurerm_virtual_desktop_application_group.desktop_app_group.id 
+  workspace_id         = azurerm_virtual_desktop_workspace.workspace.id
+  application_group_id = azurerm_virtual_desktop_application_group.desktop_app_group.id
 }
 
 resource "azurerm_network_interface" "avd_nic" {
@@ -74,8 +74,8 @@ resource "azurerm_windows_virtual_machine" "avd_vm" {
   tags                = local.common_tags
   size                = var.vm_size
 
-  admin_username      = var.admin_username
-  admin_password      = data.azurerm_key_vault_secret.avd_admin_password.value
+  admin_username = var.admin_username
+  admin_password = data.azurerm_key_vault_secret.avd_admin_password.value
 
   network_interface_ids = [azurerm_network_interface.avd_nic[each.key].id]
 
@@ -94,7 +94,7 @@ resource "azurerm_windows_virtual_machine" "avd_vm" {
 }
 
 resource "azurerm_virtual_desktop_host_pool_registration_info" "registration_info" {
-  hostpool_id    = azurerm_virtual_desktop_host_pool.avd_hostpool.id
+  hostpool_id     = azurerm_virtual_desktop_host_pool.avd_hostpool.id
   expiration_date = timeadd(timestamp(), "8h")
 }
 

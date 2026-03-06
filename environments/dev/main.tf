@@ -51,7 +51,7 @@ module "keyvault" {
   location            = var.location
   resource_group_name = azurerm_resource_group.avd.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
-  principal_id        =  data.azurerm_client_config.current.object_id
+  principal_id        = data.azurerm_client_config.current.object_id
 
 }
 
@@ -78,22 +78,22 @@ module "storage" {
 module "avd-hostpool" {
   source = "../../modules/avd-hostpool"
 
-  environment                 = "poc"
-  project                     = "avd-capstone"
-  location                    = var.location
-  resource_group_name         = azurerm_resource_group.avd.name
-  host_pool_name              = "avd-poc"
-  friendly_name               = "AVD POC Host Pool"
-  description                 = "Host pool for AVD POC environment"
-  app_group_name              = "avd-poc-appgroup"
-  app_group_friendly_name     = "AVD POC App Group"
-  app_group_description       = "Application group for AVD POC environment"
-  workspace_name              = "avd-poc-workspace"
-  workspace_friendly_name     = "AVD POC Workspace"
-  workspace_description       = "AVD POC Workspace"
-  vm_count                    = 2
-  subnet_id                   = module.networking.avd_subnet_id
-  admin_username              = "avdadmin"
-  key_vault_id                = module.keyvault.avd_keyvault_id
-  admin_password_secret_name  = "AVDAdminPassword"
+  environment                = "poc"
+  project                    = "avd-capstone"
+  location                   = var.location
+  resource_group_name        = azurerm_resource_group.avd.name
+  host_pool_name             = "avd-poc"
+  friendly_name              = "AVD POC Host Pool"
+  description                = "Host pool for AVD POC environment"
+  app_group_name             = "avd-poc-appgroup"
+  app_group_friendly_name    = "AVD POC App Group"
+  app_group_description      = "Application group for AVD POC environment"
+  workspace_name             = "avd-poc-workspace"
+  workspace_friendly_name    = "AVD POC Workspace"
+  workspace_description      = "AVD POC Workspace"
+  vm_count                   = 2
+  subnet_id                  = module.networking.avd_subnet_id
+  admin_username             = "avdadmin"
+  key_vault_id               = module.keyvault.avd_keyvault_id
+  admin_password_secret_name = "AVDAdminPassword"
 }

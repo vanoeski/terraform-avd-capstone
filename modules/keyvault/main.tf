@@ -7,12 +7,12 @@ locals {
 }
 
 resource "azurerm_key_vault" "kv_avd_secrets" {
-  name                        = "${var.project}-${var.environment}-kv"
-  location                    = var.location
-  resource_group_name         = var.resource_group_name
-  tenant_id                   = var.tenant_id
-  soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
+  name                       = "${var.project}-${var.environment}-kv"
+  location                   = var.location
+  resource_group_name        = var.resource_group_name
+  tenant_id                  = var.tenant_id
+  soft_delete_retention_days = 7
+  purge_protection_enabled   = false
 
   sku_name = "standard"
 
@@ -28,8 +28,8 @@ resource "azurerm_role_assignment" "avd_kv_secrets_user" {
 }
 
 resource "random_password" "avd_admin_password" {
-  length  = 16
-  special = true
+  length           = 16
+  special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 

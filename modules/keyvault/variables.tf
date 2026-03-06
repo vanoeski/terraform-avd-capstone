@@ -7,7 +7,7 @@ variable "project" {
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = "eastus"
 }
 
