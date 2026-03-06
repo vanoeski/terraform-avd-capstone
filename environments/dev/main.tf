@@ -68,7 +68,7 @@ module "storage" {
   account_tier                    = "Premium"
   account_replication_type        = "LRS"
   share_name                      = "avdpocshare"
-  storage_share_quota             = 5120
+  storage_share_quota             = 100
   private_endpoint_name           = "avdpocstoragepe"
   private_service_connection_name = "avdpocstoragepsc"
   private_dns_zone_id             = module.networking.private_dns_zone_id
