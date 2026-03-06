@@ -6,6 +6,11 @@ locals {
   }
 }
 
+data "azurerm_key_vault_secret" "avd_admin_password" {
+  name         = var.admin_password_secret_name
+  key_vault_id = var.key_vault_id
+}
+
 resource "azurerm_virtual_desktop_host_pool" "avd_hostpool" {
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -69,9 +74,8 @@ resource "azurerm_windows_virtual_machine" "avd_vm" {
   tags                = local.common_tags
   size                = var.vm_size
 
-  ## to be replaced by keyvault reference in future iteration
   admin_username      = var.admin_username
-  admin_password      = var.admin_password
+  admin_password      = data.azurerm_key_vault_secret.avd_admin_password.value
 
   network_interface_ids = [azurerm_network_interface.avd_nic[each.key].id]
 

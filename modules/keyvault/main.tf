@@ -6,7 +6,7 @@ locals {
   }
 }
 
-resource "azurerm_key_vault" "avd_secrets" {
+resource "azurerm_key_vault" "kv_avd_secrets" {
   name                        = "${var.project}-${var.environment}-kv"
   location                    = var.location
   resource_group_name         = var.resource_group_name
@@ -21,8 +21,20 @@ resource "azurerm_key_vault" "avd_secrets" {
 
 resource "azurerm_role_assignment" "avd_kv_secrets_user" {
   role_definition_name = "Key Vault Secrets User"
-  scope                = azurerm_key_vault.avd_secrets.id
+  scope                = azurerm_key_vault.kv_avd_secrets.id
   principal_id         = var.principal_id
   principal_type       = "ServicePrincipal"
   description          = "Read secret contents including secret portion of a certificate with private key. Only works for key vaults that use the 'Azure role-based access control' permission model."
+}
+
+resource "random_password" "avd_admin_password" {
+  length  = 16
+  special = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "azurerm_key_vault_secret" "avd_admin_password" {
+  name         = "AVDAdminPassword"
+  value        = random_password.avd_admin_password.result
+  key_vault_id = azurerm_key_vault.kv_avd_secrets.id
 }
