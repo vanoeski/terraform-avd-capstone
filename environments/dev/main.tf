@@ -1,5 +1,11 @@
 data "azurerm_client_config" "current" {}
 
+data "azurerm_key_vault_secret" "avd_admin_password" {
+  name         = "AVDAdminPassword"
+  key_vault_id = module.keyvault.avd_keyvault_id
+  depends_on = [ module.keyvault ]
+}
+
 resource "random_string" "storage_suffix" {
   length      = 6
   upper       = false
