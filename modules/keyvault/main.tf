@@ -30,7 +30,7 @@ resource "azurerm_role_assignment" "avd_kv_secrets_officer" {
 }
 
 resource "time_sleep" "wait_for_rbac" {
-  depends_on = [azurerm_role_assignment.avd_kv_secrets_user]
+  depends_on = [azurerm_role_assignment.avd_kv_secrets_officer]
   create_duration = "90s"
   
 }
