@@ -22,7 +22,7 @@ resource "azurerm_key_vault" "kv_avd_secrets" {
 }
 
 resource "azurerm_role_assignment" "avd_kv_secrets_user" {
-  role_definition_name = "Key Vault Secrets User"
+  role_definition_name = "Key Vault Secrets Officer"
   scope                = azurerm_key_vault.kv_avd_secrets.id
   principal_id         = var.principal_id
   principal_type       = "ServicePrincipal"
