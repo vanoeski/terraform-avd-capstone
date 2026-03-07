@@ -84,10 +84,7 @@ variable "admin_username" {
   type = string
 }
 
-variable "admin_password_secret_name" {
+variable "admin_password" {
   type = string
-}
-
-variable "key_vault_id" {
-  type = string
+  sensitive = true
 }
