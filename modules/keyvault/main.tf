@@ -21,12 +21,12 @@ resource "azurerm_key_vault" "kv_avd_secrets" {
   rbac_authorization_enabled = true
 }
 
-resource "azurerm_role_assignment" "avd_kv_secrets_user" {
-  role_definition_name = "Key Vault Secrets User"
+resource "azurerm_role_assignment" "avd_kv_secrets_officer" {
+  role_definition_name = "Key Vault Secrets Officer"
   scope                = azurerm_key_vault.kv_avd_secrets.id
   principal_id         = var.principal_id
   principal_type       = "ServicePrincipal"
-  description          = "Read secret contents including secret portion of a certificate with private key. Only works for key vaults that use the 'Azure role-based access control' permission model."
+  description          = "Read and write secret contents including secret portion of a certificate with private key. Only works for key vaults that use the 'Azure role-based access control' permission model."
 }
 
 resource "time_sleep" "wait_for_rbac" {
