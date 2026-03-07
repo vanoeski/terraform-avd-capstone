@@ -6,11 +6,6 @@ locals {
   }
 }
 
-data "azurerm_key_vault_secret" "avd_admin_password" {
-  name         = var.admin_password_secret_name
-  key_vault_id = var.key_vault_id
-}
-
 resource "azurerm_virtual_desktop_host_pool" "avd_hostpool" {
   location            = var.location
   resource_group_name = var.resource_group_name
