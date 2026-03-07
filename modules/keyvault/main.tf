@@ -6,6 +6,8 @@ locals {
   }
 }
 
+
+
 resource "azurerm_key_vault" "kv_avd_secrets" {
   name                       = "${var.project}-${var.environment}-kv"
   location                   = var.location
@@ -27,6 +29,12 @@ resource "azurerm_role_assignment" "avd_kv_secrets_user" {
   description          = "Read secret contents including secret portion of a certificate with private key. Only works for key vaults that use the 'Azure role-based access control' permission model."
 }
 
+resource "time_sleep" "wait_for_rbac" {
+  depends_on = [azurerm_role_assignment.avd_kv_secrets_user]
+  create_duration = "90s"
+  
+}
+
 resource "random_password" "avd_admin_password" {
   length           = 16
   special          = true
@@ -34,6 +42,8 @@ resource "random_password" "avd_admin_password" {
 }
 
 resource "azurerm_key_vault_secret" "avd_admin_password" {
+  depends_on = [ time_sleep.wait_for_rbac ]
+
   name         = "AVDAdminPassword"
   value        = random_password.avd_admin_password.result
   key_vault_id = azurerm_key_vault.kv_avd_secrets.id
