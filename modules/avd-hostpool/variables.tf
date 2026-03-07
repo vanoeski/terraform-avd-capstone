@@ -77,7 +77,7 @@ variable "subnet_id" {
 variable "vm_size" {
   # VM SKU
   type    = string
-  default = "Standard_B2ls_v2"
+  default = "Standard_B2s"
 }
 
 variable "admin_username" {
